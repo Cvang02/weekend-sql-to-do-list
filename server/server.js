@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('server/public'));
 
 // ROUTES 
-app.use('/todo', todoRouter);
+app.use('/myAgendaLists', todoRouter);
 
 // START LISTENING:
 app.listen(PORT, () => {
