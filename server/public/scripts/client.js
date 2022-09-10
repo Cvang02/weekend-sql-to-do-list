@@ -1,0 +1,2 @@
+// MAKING SURE CLIENT.JS IS RUNNING.
+console.log(`(CLIENT.JS IS WORKING!!!)`);

@@ -1,11 +1,11 @@
 ##### WEEKEND CHALLENGE TO DO LISTS!!!!
 
-[] - CREATE ALL FOLDERS AND FILES
-    [] - include a `database.sql`
-[] - INSTALL ALL NPM / NODES 
-[] - LINK ALL FILES TOGETHER
-[] - CREATE A DATABASE WITH MOCK TASKS
-    [] - USE THE NAME `weekend-to-do-app`
+[✅] - CREATE ALL FOLDERS AND FILES
+    [✅] - include a `database.sql`
+[✅] - INSTALL ALL NPM / NODES 
+[✅] - LINK ALL FILES TOGETHER
+[✅] - CREATE A DATABASE WITH MOCK TASKS
+    [✅] - USE THE NAME `weekend-to-do-app`
 
 ##### HTML SIDE (FOR VISUAL)
 
