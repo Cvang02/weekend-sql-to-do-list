@@ -13,9 +13,9 @@
 
 ##### CLIENTS SIDE
 
-[] - POST ROUTE - ADD TASKS TO DB
-    [] - Create a front end experience that allows a user to create a Task. 
-    [] - When the Task is created, it should be stored inside of a database (SQL)
+[✅] - POST ROUTE - ADD TASKS TO DB
+    [✅] - Create a front end experience that allows a user to create a Task. 
+    [✅] - When the Task is created, it should be stored inside of a database (SQL)
 [] - GET ROUTE - GET TASKS FROM DB
     [] - Whenever a Task is created the front end should refresh to show all tasks that need to be completed.
     [] - Whether or not a Task is complete should also be stored in the database.
