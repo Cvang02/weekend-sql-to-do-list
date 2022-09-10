@@ -40,6 +40,24 @@ todoRouter.get('/', (req, res) => {
 
 // DELETE ROUTE 
 
+todoRouter.delete('/:id', (req, res) => {
+    console.log(`Deleting task, id ${req.params.id}`);
+    let deleteId = req.params.id;
+  
+    const queryText = `
+        DELETE from "agenda"
+            WHERE "id" = $1;
+    `
+    pool.query(queryText, [deleteId])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log(`Error deleting task`, error);
+            res.sendStatus(500);
+        });
+});
+
 // PUT ROUTE 
 
 module.exports = todoRouter; 
