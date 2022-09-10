@@ -8,7 +8,7 @@ const pool = require('../modules/pool.js');
 todoRouter.post('/', (req, res) => {
     let newtasks = req.body;
     let priority = (req.body.taskPriority === 'High') ? true : false;
-    let status = (req.body.taskStatus === 'Y') ? true : false;
+    let status = (req.body.taskStatus === 'Complete') ? true : false;
 
     console.log(`Add new Task`, newtasks);
 
@@ -28,7 +28,7 @@ todoRouter.post('/', (req, res) => {
 // GET ROUTE 
 
 todoRouter.get('/', (req, res) => {
-    let queryText = 'SELECT * FROM "agenda";'
+    let queryText = 'SELECT * FROM "agenda" ORDER BY "id";'
     pool.query(queryText).then(result => {
         res.send(result.rows);
     })
@@ -59,5 +59,23 @@ todoRouter.delete('/:id', (req, res) => {
 });
 
 // PUT ROUTE 
+todoRouter.put('/:id', (req, res) => {
+    console.log(`Updating task, id ${req.params.id}`);
+    let updateId = req.params.id;
+
+    const queryText = `
+        UPDATE "agenda"
+            SET "status" = NOT "status"
+            WHERE "id" = $1;
+    `
+    pool.query(queryText, [updateId])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('Error updating task', error);
+            res.sendStatus(500);
+        });
+});
 
 module.exports = todoRouter; 
