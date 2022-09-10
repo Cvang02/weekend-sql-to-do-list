@@ -27,6 +27,17 @@ todoRouter.post('/', (req, res) => {
 
 // GET ROUTE 
 
+todoRouter.get('/', (req, res) => {
+    let queryText = 'SELECT * FROM "agenda";'
+    pool.query(queryText).then(result => {
+        res.send(result.rows);
+    })
+    .catch(error => {
+        console.log('error GETing Tasks', error);
+        res.sendStatus(500);
+    });
+});
+
 // DELETE ROUTE 
 
 // PUT ROUTE 
