@@ -12,6 +12,7 @@ function onReady() {
 function setupClickListerners() {
     $('#addButton').on('click', addToTaskLists);
     $('#viewTasks').on('click', '.deleteButton', taskDelete );
+    $('#viewTasks').on('click', '.completeStatus', taskUpdate);
 }
 
 // POST ROUTE - ADD NEW TASKS LIST TO DATABASE.
@@ -20,6 +21,11 @@ function addToTaskLists () {
     let taskDescription = $('#tasksDesciption').val();
     let taskPriority = $('#tasksPriority').val();
     let taskStatus = $('#tasksStatus').val();
+
+    if (!taskName || !taskDescription || !taskPriority || !taskStatus) {
+        alert('please enter information')
+        return;
+    }
 
     $.ajax({
         method: 'POST',
@@ -57,7 +63,7 @@ function getTasks() {
                     <td class="Tname">${newTasks.task}</td>
                     <td class="Tdesciption">${newTasks.description}</td>
                     <td class="level"><button class="levelPriority">${statusPriority}</button></td>
-                    <td class="complete"><button class="CompleteStatus">${statusStatus}</button></td>
+                    <td class="complete"><button class="completeStatus">${statusStatus}</button></td>
                     <td><button class="deleteButton">DELETE</button></td>
                     <td class="editTd"><button class="edit">EDIT</button></td>
                 </tr>`);
@@ -81,3 +87,18 @@ function taskDelete () {
     console.log('DELETE unsuccessful',error);
     });
 } //    END OF TASKDELETE FUNCTION. 
+
+// PUT ROUTE - LET US EDIT WHEN TASK'S STATUSES. 
+function taskUpdate() {
+    $.ajax({
+        method: 'PUT',
+        url: `/myAgendaLists/${$(this).parent().parent().data('id')}`
+    })
+    .then((response) => {
+        console.log('PUT successful',response);
+        getTasks();
+     })
+    .catch((error) => {
+        console.log('PUT unsuccessful',error);
+    });
+} // END OF TASKUPDATE FUNCTION. 
