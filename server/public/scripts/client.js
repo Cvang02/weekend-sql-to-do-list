@@ -86,11 +86,11 @@ function renderTask (tasksList) {
     
     //  NEED TO FIND A WAY TO CHANGE BACKGROUND COLOR WHEN CLICKED ON COMPLETE BUTTON. 
     // if (statusStatus === 'Complete') {
-    //     $('#viewTasks').children().css('background-color', 'green');
+    //     $('.Trow').children().css('background-color', 'green');
     // }
 
     $('#viewTasks').append(`
-        <tr data-id=${newTasks.id}>
+        <tr class="Trow"data-id=${newTasks.id}>
             <td class="Tname">${newTasks.task}</td>
             <td class="Tdesciption">${newTasks.description}</td>
             <td class="level"><button class="levelPriority">${statusPriority}</button></td>
