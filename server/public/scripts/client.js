@@ -12,7 +12,8 @@ function onReady() {
 function setupClickListerners() {
     $('#addButton').on('click', addToTaskLists);
     $('#viewTasks').on('click', '.deleteButton', taskDelete );
-    $('#viewTasks').on('click', '.completeStatus', taskUpdate);
+    $('#viewTasks').on('click', '.completeStatus', statusUpdate);
+    $('#viewTasks').on('click', '.levelPriority', priorityUpdate);
     $('.dropOption').on( 'click', inputDropValue);
     $('#viewKoalas').on( 'click', '.dropOption', inputDropValue);
 }
@@ -30,7 +31,11 @@ function addToTaskLists () {
     let taskStatus = $('#tasksStatus').val();
 
     if (!taskName || !taskDescription || !taskPriority || !taskStatus) {
-        alert('please enter information')
+        Swal.fire({
+            icon: 'warning',
+            title: 'Task Input Empty',
+            text: `Please fill all task information.`,
+        })
         return;
     }
 
@@ -71,6 +76,7 @@ function getTasks() {
     });
 } // END OF GETTASKS FUNCTION.
 
+// FUNCTION WILL RENDER EXSISITING DATA
 function renderTask (tasksList) {
     $('#viewTasks').empty();
 
@@ -80,9 +86,9 @@ function renderTask (tasksList) {
     
     //  NEED TO FIND A WAY TO CHANGE BACKGROUND COLOR WHEN CLICKED ON COMPLETE BUTTON. 
     // if (statusStatus === 'Complete') {
-    //     $('[data-id]').css('background-color', 'green');
+    //     $('this').css('background-color', 'green').parent().parent().data('id');
     // } else {}
-        
+
     $('#viewTasks').append(`
         <tr class="tRoll" data-id=${newTasks.id}>
             <td class="Tname">${newTasks.task}</td>
@@ -90,34 +96,48 @@ function renderTask (tasksList) {
             <td class="level"><button class="levelPriority">${statusPriority}</button></td>
             <td class="complete"><button class="completeStatus">${statusStatus}</button></td>
             <td><button class="deleteButton">DELETE</button></td>
-        </tr>`);}
+        </tr>`);
+    } // END OF FOR LOOP.
 
     $('input').val('');
-}
+} // END OF RENDERTASK FUNCTION. 
 
 // DELETE ROUTE - DELETE DATA FROM DATABASE AND DOM. 
 function taskDelete () {
-    $.ajax({
-        method: 'DELETE',
-        url: `/myAgendaLists/${$(this).parent().parent().data('id')}`
-        })
-    .then((response) => {
-        console.log('DELETE successful',response);
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: 'DELETE',
+                url: `/myAgendaLists/${$(this).parent().parent().data('id')}`
+                })
+          Swal.fire(
+            'Deleted!',
+            'Your task has been deleted.',
+            'success'
+          )
+        }
+        else {
+            Swal.fire(
+                'Your task is safe.',
+            )}
 
-        Swal.fire({
-            icon: 'success',
-            title: 'Tasks Deleted',
-        })
+      getTasks();
 
-        getTasks();
-        })
-    .catch((error) => {
-    console.log('DELETE unsuccessful',error);
+      }).catch((error) => {
+        console.log('DELETE unsuccessful',error);
     });
 } //    END OF TASKDELETE FUNCTION. 
 
-// PUT ROUTE - LET US EDIT TASK STATUSES. 
-function taskUpdate() {
+// PUT ROUTE - LET US UPDATE TASK STATUSES. 
+function statusUpdate() {
     $.ajax({
         method: 'PUT',
         url: `/myAgendaLists/${$(this).parent().parent().data('id')}`
@@ -133,8 +153,7 @@ function taskUpdate() {
             backdrop: `
               rgba(0,0,123,0.4)
               url(../images/cat-space.gif)
-              left top
-              no-repeat
+              repeat
             `
           })
 
@@ -143,5 +162,19 @@ function taskUpdate() {
     .catch((error) => {
         console.log('PUT unsuccessful',error);
     });
-} // END OF TASKUPDATE FUNCTION. 
+} // END OF STATUSUPDATE FUNCTION. 
 
+// THIS FUNCTION UPDATE PRIORITY LEVEL ON CLICKED.
+function priorityUpdate() {
+    $.ajax({
+        method: 'PUT',
+        url: `/myAgendaPriority/${$(this).parent().parent().data('id')}`
+    })
+    .then((response) => {
+        console.log('PUT successful',response);
+        getTasks();
+     })
+    .catch((error) => {
+        console.log('PUT unsuccessful',error);
+    });
+} // END OF PRIORITY FUNCTION. 
