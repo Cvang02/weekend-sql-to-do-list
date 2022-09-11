@@ -15,8 +15,18 @@
         <section>
             <input id="tasksName" type="text" placeholder="Task">
             <input id="tasksDesciption" type="text" placeholder="Description">
-            <input id="tasksPriority" type="text" placeholder="Priority">
-            <input id="tasksStatus" type="text" placeholder="Status">
+            <div class="dropdown">
+                <input class="dropbtn" id="tasksPriority" disabled placeholder="PRIORITY">
+                <div id="transferDropdown" class="dropdown-content">
+                  <p class="dropOption" data-val="High">High</p>
+                  <p class="dropOption" data-val="Low">Low</p>
+            </div>
+            <div class="dropdown">
+                <input class="dropbtn" id="tasksStatus" disabled placeholder="STATUS">
+                <div id="transferDropdown" class="dropdown-content">
+                  <p class="dropOption" data-val="Complete">Complete</p>
+                  <p class="dropOption" data-val="Not Complete">Not Complete</p>
+            </div>
             <button id="addButton">Add New Tasks</button>
         </section>
         <section>
@@ -27,8 +37,7 @@
                         <th>DESCRIPTION</th>
                         <th>PRIORITY</th>
                         <th>STATUS</th>
-                        <th>(DELETE BUTTON GOES HERE)</th>
-                        <th>(EDIT BUTTON GOES HERE)</th>
+                        <th></th>
                     </tr>
                 </thead>
             <tbody id="viewTasks"></tbody>

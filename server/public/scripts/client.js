@@ -13,6 +13,13 @@ function setupClickListerners() {
     $('#addButton').on('click', addToTaskLists);
     $('#viewTasks').on('click', '.deleteButton', taskDelete );
     $('#viewTasks').on('click', '.completeStatus', taskUpdate);
+    $('.dropOption').on( 'click', inputDropValue);
+    $('#viewKoalas').on( 'click', '.dropOption', inputDropValue);
+}
+
+function inputDropValue() {
+    console.log( $(this).parent().siblings('.dropbtn') );
+    $(this).parent().siblings('.dropbtn').val( $(this).data('val') );
 }
 
 // POST ROUTE - ADD NEW TASKS LIST TO DATABASE.
@@ -34,7 +41,6 @@ function addToTaskLists () {
     }).then((response) => {
         console.log('POST successful', response);
         getTasks()
-        $('input').val('');
     })
     .catch((error) => {
         console.log('POST unsuccessful',error)
@@ -53,25 +59,26 @@ function getTasks() {
         console.log('GET successful', tasksList);
         
         $('#viewTasks').empty();
-            
+
         for (let newTasks of tasksList) {
             let statusPriority = (newTasks.priority === true) ? 'High' : 'Low';
-            let statusStatus = (newTasks.status === true) ? 'Complete' : 'Not Complete';
-            
-            $('#viewTasks').append(`
-                <tr data-id=${newTasks.id}>
-                    <td class="Tname">${newTasks.task}</td>
-                    <td class="Tdesciption">${newTasks.description}</td>
-                    <td class="level"><button class="levelPriority">${statusPriority}</button></td>
-                    <td class="complete"><button class="completeStatus">${statusStatus}</button></td>
-                    <td><button class="deleteButton">DELETE</button></td>
-                    <td class="editTd"><button class="edit">EDIT</button></td>
-                </tr>`);
-            }})
-        .catch((error) => {
+            let statusStatus = (newTasks.status === true) ? 'Complete' : 'Not Complete'; 
+        
+        $('#viewTasks').append(`
+            <tr class="tRoll" data-id=${newTasks.id}>
+                <td class="Tname">${newTasks.task}</td>
+                <td class="Tdesciption">${newTasks.description}</td>
+                <td class="level"><button class="levelPriority">${statusPriority}</button></td>
+                <td class="complete"><button class="completeStatus">${statusStatus}</button></td>
+                <td><button class="deleteButton">DELETE</button></td>
+            </tr>`);}
+
+        $('input').val('');
+
+    }).catch((error) => {
           console.log('GET unsuccessful',error);
-        });
-} // END OF GETTASKS FUNCTION. 
+    });
+} // END OF GETTASKS FUNCTION.
 
 // DELETE ROUTE - DELETE DATA FROM DATABASE AND DOM. 
 function taskDelete () {
@@ -88,7 +95,7 @@ function taskDelete () {
     });
 } //    END OF TASKDELETE FUNCTION. 
 
-// PUT ROUTE - LET US EDIT WHEN TASK'S STATUSES. 
+// PUT ROUTE - LET US EDIT TASK STATUSES. 
 function taskUpdate() {
     $.ajax({
         method: 'PUT',
@@ -102,3 +109,4 @@ function taskUpdate() {
         console.log('PUT unsuccessful',error);
     });
 } // END OF TASKUPDATE FUNCTION. 
+
