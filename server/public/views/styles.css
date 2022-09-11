@@ -1,16 +1,84 @@
-td {
-    width: 145px;
-    height: 50px;
-    text-align: center;
+body {
+  background-color: tan;
+  margin: 10px;
+  padding: 10px;
+  font-family: Chalkduster, fantasy;
+  background-image: url(../images/background1.webp);
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+header {
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: aqua;
+  font-size: x-large;
+  background-image: linear-gradient(white, skyblue);
 }
 
+main {
+  margin: 50px;
+  padding: 10px;
+  text-align: center;
+  background-color: aqua;
+  background-image: linear-gradient(white, skyblue);
+}
+
+h2 {
+  font-size: xx-large
+}
+
+#inputView {
+  margin: 30px;
+  padding: 30px;
+  text-align: center;
+}
+
+input {
+  margin: 10px;
+  padding: 6px;
+  text-align: center;
+}
+
+#tableOutput {
+  margin: 10px;
+  padding: 50px;
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  table-layout: fixed;
+  width: 100%;
+}
+
+tbody {
+  text-align: center;
+}
+
+th,td {
+  border: 2px solid black;
+}
+
+Button {
+  margin: 30px;
+  text-align: center;
+  background-image: linear-gradient(white, skyblue);
+  font-family: Chalkduster, fantasy;
+}
+
+::placeholder {
+  color: skyblue;
+  font-family: Chalkduster, fantasy;
+ }
+
+.dropdownStatus {
+    position: relative;
+    display: inline-block;
+}
+  
 /* Dropdown Content (Hidden by Default) */
-.dropdown-content {
+.dropdownStatus-content{
   text-align: center;
   display: none;
   position: absolute;
@@ -20,12 +88,38 @@ td {
   z-index: 1;
 }
 
-.dropdown-content > p {
+.dropdownStatus-content > p {
   padding: 5px;
 }
 
-.dropdown-content p:hover {background-color: #ddd;}
+.dropdownStatus-content p:hover {background-color: skyblue;}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdownStatus:hover .dropdownStatus-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color:tan;}
+.dropdownStatus:hover .dropbtn {background-color: white}
+
+.dropdownLevel {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdownLevel-content{
+text-align: center;
+display: none;
+position: absolute;
+background-color: #f1f1f1;
+width: 145px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+}
+
+.dropdownLevel-content > p {
+  padding: 5px;
+}
+
+.dropdownLevel-content p:hover {background-color: skyblue;}
+
+.dropdownLevel:hover .dropdownLevel-content {display: block;}
+
+.dropdownLevel:hover .dropbtn {background-color: white}

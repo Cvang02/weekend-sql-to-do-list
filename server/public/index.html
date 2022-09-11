@@ -6,30 +6,31 @@
     <title>Week 9 - To-Do-List-App</title>
     <script src="./vendors/jquery-3.3.1.min.js"></script>
     <script src="./scripts/client.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="./views/styles.css">
 </head>
 <body>
-    <header><h1>WEEKEND CHALLENGE</h1></header>
+    <header><h1> U(⁎˃ᆺ˂)U Daily To-Do Lists U(⁎˃ᆺ˂)U </h1></header>
     <main>
-        <h2>MY TO-DO LISTS</h2>
-        <section>
+        <h2>My Tasks</h2>
+        <section id="inputView">
             <input id="tasksName" type="text" placeholder="Task">
             <input id="tasksDesciption" type="text" placeholder="Description">
-            <div class="dropdown">
-                <input class="dropbtn" id="tasksPriority" disabled placeholder="PRIORITY">
-                <div id="transferDropdown" class="dropdown-content">
+            <div class="dropdownLevel">
+                <input class="dropbtn" id="tasksPriority" disabled placeholder="Priority">
+                <div id="transferDropdown" class="dropdownLevel-content">
                   <p class="dropOption" data-val="High">High</p>
                   <p class="dropOption" data-val="Low">Low</p>
             </div>
-            <div class="dropdown">
-                <input class="dropbtn" id="tasksStatus" disabled placeholder="STATUS">
-                <div id="transferDropdown" class="dropdown-content">
+            <div class="dropdownStatus">
+                <input class="dropbtn" id="tasksStatus" disabled placeholder="Status">
+                <div id="transferDropdown" class="dropdownStatus-content">
                   <p class="dropOption" data-val="Complete">Complete</p>
                   <p class="dropOption" data-val="Not Complete">Not Complete</p>
             </div>
             <button id="addButton">Add New Tasks</button>
         </section>
-        <section>
+        <section id="tableOutput">
             <table>
                 <thead>
                     <tr>

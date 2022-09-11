@@ -34,6 +34,12 @@ function addToTaskLists () {
         return;
     }
 
+    Swal.fire({
+        icon: 'success',
+        title: 'Tasks Added',
+        text: `DON'T PROCRASTINATE!!!`,
+    })
+
     $.ajax({
         method: 'POST',
         url: '/myAgendaLists',
@@ -58,27 +64,36 @@ function getTasks() {
         let tasksList = response;
         console.log('GET successful', tasksList);
         
-        $('#viewTasks').empty();
-
-        for (let newTasks of tasksList) {
-            let statusPriority = (newTasks.priority === true) ? 'High' : 'Low';
-            let statusStatus = (newTasks.status === true) ? 'Complete' : 'Not Complete'; 
-        
-        $('#viewTasks').append(`
-            <tr class="tRoll" data-id=${newTasks.id}>
-                <td class="Tname">${newTasks.task}</td>
-                <td class="Tdesciption">${newTasks.description}</td>
-                <td class="level"><button class="levelPriority">${statusPriority}</button></td>
-                <td class="complete"><button class="completeStatus">${statusStatus}</button></td>
-                <td><button class="deleteButton">DELETE</button></td>
-            </tr>`);}
-
-        $('input').val('');
+        renderTask (tasksList)
 
     }).catch((error) => {
           console.log('GET unsuccessful',error);
     });
 } // END OF GETTASKS FUNCTION.
+
+function renderTask (tasksList) {
+    $('#viewTasks').empty();
+
+    for (let newTasks of tasksList) {
+        let statusPriority = (newTasks.priority === true) ? 'High' : 'Low';
+        let statusStatus = (newTasks.status === true) ? 'Complete' : 'Not Complete'; 
+    
+    //  NEED TO FIND A WAY TO CHANGE BACKGROUND COLOR WHEN CLICKED ON COMPLETE BUTTON. 
+    // if (statusStatus === 'Complete') {
+    //     $('[data-id]').css('background-color', 'green');
+    // } else {}
+        
+    $('#viewTasks').append(`
+        <tr class="tRoll" data-id=${newTasks.id}>
+            <td class="Tname">${newTasks.task}</td>
+            <td class="Tdesciption">${newTasks.description}</td>
+            <td class="level"><button class="levelPriority">${statusPriority}</button></td>
+            <td class="complete"><button class="completeStatus">${statusStatus}</button></td>
+            <td><button class="deleteButton">DELETE</button></td>
+        </tr>`);}
+
+    $('input').val('');
+}
 
 // DELETE ROUTE - DELETE DATA FROM DATABASE AND DOM. 
 function taskDelete () {
@@ -88,6 +103,12 @@ function taskDelete () {
         })
     .then((response) => {
         console.log('DELETE successful',response);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Tasks Deleted',
+        })
+
         getTasks();
         })
     .catch((error) => {
@@ -103,6 +124,20 @@ function taskUpdate() {
     })
     .then((response) => {
         console.log('PUT successful',response);
+
+        Swal.fire({
+            title: '🥳 Task Finished 🎉',
+            width: 600,
+            padding: '3em',
+            color: '#716add',
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url(../images/cat-space.gif)
+              left top
+              no-repeat
+            `
+          })
+
         getTasks();
      })
     .catch((error) => {
